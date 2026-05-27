@@ -2,7 +2,6 @@ package me.macronis.blucooldown.util;
 
 import me.macronis.blucooldown.BluCooldown;
 import org.bukkit.Bukkit;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -56,7 +55,7 @@ public class VersionChecker {
             } catch (Exception exception) {
 
                 plugin.getLogger().warning("Could not check for updates.");
-
+             /* plugin.getLogger().warning("Could not check for updates."); */
             }
 
         });
