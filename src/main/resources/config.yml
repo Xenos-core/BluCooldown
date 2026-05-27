@@ -1,0 +1,20 @@
+messages:
+  cooldown:
+    actionbar: "<red>You must wait <white>%time%</white> before using this item again."
+
+items:
+  ENDER_PEARL:
+    enabled: true
+    cooldown: 15
+
+  GOLDEN_APPLE:
+    enabled: true
+    cooldown: 5
+
+  CHORUS_FRUIT:
+    enabled: true
+    cooldown: 8
+
+  ENCHANTED_GOLDEN_APPLE:
+    enabled: true
+    cooldown: 30

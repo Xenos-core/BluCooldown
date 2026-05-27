@@ -1,0 +1,6 @@
+name: BluCooldown
+version: '1.0'
+main: me.macronis.blucooldown.BluCooldown
+api-version: '1.21'
+author: Macronis
+folia-supported: true
