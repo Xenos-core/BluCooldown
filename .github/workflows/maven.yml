@@ -1,0 +1,36 @@
+name: BluCooldown Build
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Build Plugin
+        run: mvn clean package
+
+      - name: Upload Jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: BluCooldown
+          path: target/*.jar
