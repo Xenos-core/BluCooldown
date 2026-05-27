@@ -4,7 +4,6 @@ Advanced async item cooldown plugin for Paper/Folia 1.21+
 
 ## Features
 
-- Vanilla cooldown animation
 - Fully configurable
 - Async-safe
 - Folia support
