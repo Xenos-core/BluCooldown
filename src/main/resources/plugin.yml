@@ -1,6 +1,21 @@
 name: BluCooldown
-version: '1.0'
+version: '1.1.0'
 main: me.macronis.blucooldown.BluCooldown
 api-version: '1.21'
 author: Macronis
 folia-supported: true
+
+commands:
+  blucooldown:
+    description: Manage BluCooldown.
+    usage: /blucooldown <reload|handitem>
+    aliases:
+      - blu
+
+permissions:
+  blucooldown.reload:
+    description: Allows reloading the BluCooldown config.
+    default: op
+  blucooldown.handitem:
+    description: Allows setting a cooldown for the item in hand.
+    default: op

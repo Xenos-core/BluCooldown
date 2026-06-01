@@ -1,9 +1,11 @@
 package me.macronis.blucooldown;
 
+import me.macronis.blucooldown.command.BluCooldownCommand;
 import me.macronis.blucooldown.util.VersionChecker;
 import me.macronis.blucooldown.listener.ItemUseListener;
 import me.macronis.blucooldown.listener.UpdateListener;
 import me.macronis.blucooldown.manager.CooldownManager;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -25,8 +27,10 @@ public final class BluCooldown extends JavaPlugin {
         );
 
         saveDefaultConfig();
+        reloadPluginConfig();
 
         cooldownManager = new CooldownManager(this);
+        registerCommands();
 
         getServer().getPluginManager().registerEvents(
                 new ItemUseListener(this),
@@ -42,6 +46,25 @@ public final class BluCooldown extends JavaPlugin {
 
     public CooldownManager getCooldownManager() {
         return cooldownManager;
+    }
+
+    public void reloadPluginConfig() {
+        reloadConfig();
+        getConfig().options().copyDefaults(true);
+        saveConfig();
+    }
+
+    private void registerCommands() {
+        PluginCommand command = getCommand("blucooldown");
+
+        if (command == null) {
+            getLogger().warning("Could not register /blucooldown command.");
+            return;
+        }
+
+        BluCooldownCommand bluCooldownCommand = new BluCooldownCommand(this);
+        command.setExecutor(bluCooldownCommand);
+        command.setTabCompleter(bluCooldownCommand);
     }
 
     public boolean isUpdateAvailable() {

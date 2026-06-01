@@ -12,6 +12,8 @@ Designed for modern Paper and Folia servers, BluCooldown focuses on performance,
 
 * Native Minecraft cooldown animation
 * Fully configurable item cooldowns
+* Reload command
+* In-game hand item cooldown command
 * Supports any item using Bukkit Material names
 * Lightweight and optimized
 * Folia compatible

@@ -1,4 +1,10 @@
 messages:
+  no-permission: "<red>You do not have permission to use this command."
+  player-only: "<red>Only players can use this command."
+  reload-success: "<green>BluCooldown config reloaded."
+  invalid-cooldown: "<red>Please enter a valid cooldown in seconds."
+  no-item-in-hand: "<red>You must hold an item in your main hand."
+  cooldown-updated: "<green>Updated <white>%material%</white> cooldown to <white>%cooldown%s</white>."
   cooldown:
     actionbar: "<red>You must wait <white>%time%</white> before using this item again."
 
