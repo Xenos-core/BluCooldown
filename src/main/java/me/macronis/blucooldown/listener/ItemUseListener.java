@@ -11,6 +11,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemUseListener implements Listener {
@@ -51,6 +53,22 @@ public class ItemUseListener implements Listener {
                 Material.ENDER_PEARL,
                 event
         );
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onProjectileLaunch(ProjectileLaunchEvent event) {
+
+        if (event.getEntity().getType() != org.bukkit.entity.EntityType.TRIDENT) {
+            return;
+        }
+
+        ProjectileSource shooter = event.getEntity().getShooter();
+
+        if (!(shooter instanceof Player player)) {
+            return;
+        }
+
+        handleCooldown(player, Material.TRIDENT, event);
     }
 
     private void handleCooldown(Player player, Material material, org.bukkit.event.Cancellable event) {
