@@ -3,6 +3,9 @@ target/
 *.iml
 *.log
 
+data/
+*.json
+
 out/
 build/
 

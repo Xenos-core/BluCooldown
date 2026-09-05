@@ -1,7 +1,6 @@
 package me.macronis.blucooldown.manager;
 
 import me.macronis.blucooldown.BluCooldown;
-import org.bukkit.Material;
 
 import java.util.Map;
 import java.util.UUID;
@@ -11,27 +10,28 @@ public class CooldownManager {
 
     private final BluCooldown plugin;
 
-    private final Map<UUID, Map<Material, Long>> cooldowns = new ConcurrentHashMap<>();
+    private final Map<UUID, Map<String, Long>> cooldowns = new ConcurrentHashMap<>();
 
     public CooldownManager(BluCooldown plugin) {
         this.plugin = plugin;
     }
 
-    public boolean hasCooldown(UUID uuid, Material material) {
-        Map<Material, Long> map = cooldowns.get(uuid);
+    public boolean hasCooldown(UUID uuid, String key) {
+
+        Map<String, Long> map = cooldowns.get(uuid);
 
         if (map == null) {
             return false;
         }
 
-        Long time = map.get(material);
+        Long time = map.get(key);
 
         if (time == null) {
             return false;
         }
 
         if (System.currentTimeMillis() >= time) {
-            map.remove(material);
+            map.remove(key);
 
             if (map.isEmpty()) {
                 cooldowns.remove(uuid);
@@ -43,14 +43,15 @@ public class CooldownManager {
         return true;
     }
 
-    public long getRemaining(UUID uuid, Material material) {
-        Map<Material, Long> map = cooldowns.get(uuid);
+    public long getRemaining(UUID uuid, String key) {
+
+        Map<String, Long> map = cooldowns.get(uuid);
 
         if (map == null) {
             return 0;
         }
 
-        Long time = map.get(material);
+        Long time = map.get(key);
 
         if (time == null) {
             return 0;
@@ -59,13 +60,14 @@ public class CooldownManager {
         return Math.max(0, (time - System.currentTimeMillis()) / 1000);
     }
 
-    public void setCooldown(UUID uuid, Material material, int seconds) {
+    public void setCooldown(UUID uuid, String key, int seconds) {
         cooldowns.computeIfAbsent(uuid, k -> new ConcurrentHashMap<>())
-                .put(material, System.currentTimeMillis() + (seconds * 1000L));
+                .put(key, System.currentTimeMillis() + (seconds * 1000L));
     }
 
-    public int getConfiguredCooldown(Material material) {
-        String path = "items." + material.name();
+    public int getConfiguredCooldown(String key) {
+
+        String path = "items." + key;
 
         if (!plugin.getConfig().contains(path)) {
             return -1;

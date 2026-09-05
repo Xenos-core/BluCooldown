@@ -5,15 +5,18 @@ import me.macronis.blucooldown.manager.CooldownManager;
 import me.macronis.blucooldown.util.TimeUtil;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
-import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.projectiles.ProjectileSource;
 
 public class ItemUseListener implements Listener {
 
@@ -36,9 +39,7 @@ public class ItemUseListener implements Listener {
             return;
         }
 
-        Material material = item.getType();
-
-        handleCooldown(player, material, event);
+        handleCooldown(player, item.getType().name(), event);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -50,7 +51,7 @@ public class ItemUseListener implements Listener {
 
         handleCooldown(
                 event.getPlayer(),
-                Material.ENDER_PEARL,
+                Material.ENDER_PEARL.name(),
                 event
         );
     }
@@ -68,22 +69,96 @@ public class ItemUseListener implements Listener {
             return;
         }
 
-        handleCooldown(player, Material.TRIDENT, event);
+        handleCooldown(player, Material.TRIDENT.name(), event);
     }
 
-    private void handleCooldown(Player player, Material material, org.bukkit.event.Cancellable event) {
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onInteract(PlayerInteractEvent event) {
 
-        int cooldown = cooldownManager.getConfiguredCooldown(material);
+        Action action = event.getAction();
+
+        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+        ItemStack item = event.getItem();
+
+        if (item == null) {
+            return;
+        }
+
+        Material material = item.getType();
+
+        if (material == Material.AIR) {
+            return;
+        }
+
+        if (material == Material.TRIDENT && item.containsEnchantment(Enchantment.RIPTIDE)) {
+            handleCooldown(player, "TRIDENT_RIPTIDE", event);
+            return;
+        }
+
+        if (!isRightClickable(material)) {
+            return;
+        }
+
+        handleCooldown(player, material.name(), event);
+    }
+
+    private boolean isRightClickable(Material material) {
+
+        if (material.isEdible()) {
+            return true;
+        }
+
+        if (material == Material.BOW
+                || material == Material.CROSSBOW
+                || material == Material.TRIDENT
+                || material == Material.ENDER_PEARL
+                || material == Material.FIREWORK_ROCKET
+                || material == Material.WIND_CHARGE
+                || material == Material.SNOWBALL
+                || material == Material.EGG
+                || material == Material.ENDER_EYE
+                || material == Material.SPLASH_POTION
+                || material == Material.LINGERING_POTION) {
+            return true;
+        }
+
+        String name = material.name();
+
+        return name.endsWith("_SPAWN_EGG")
+                || name.equals("WRITABLE_BOOK")
+                || name.equals("WRITTEN_BOOK")
+                || name.equals("GOAT_HORN")
+                || name.equals("BRUSH")
+                || name.equals("BUCKET")
+                || name.equals("WATER_BUCKET")
+                || name.equals("LAVA_BUCKET")
+                || name.equals("MILK_BUCKET")
+                || name.equals("POWDER_SNOW_BUCKET")
+                || name.equals("AXOLOTL_BUCKET")
+                || name.equals("COD_BUCKET")
+                || name.equals("PUFFERFISH_BUCKET")
+                || name.equals("SALMON_BUCKET")
+                || name.equals("TADPOLE_BUCKET")
+                || name.equals("TROPICAL_FISH_BUCKET");
+    }
+
+    private void handleCooldown(Player player, String key, org.bukkit.event.Cancellable event) {
+
+        int cooldown = cooldownManager.getConfiguredCooldown(key);
 
         if (cooldown <= 0) {
             return;
         }
 
-        if (cooldownManager.hasCooldown(player.getUniqueId(), material)) {
+        if (cooldownManager.hasCooldown(player.getUniqueId(), key)) {
 
             long remaining = cooldownManager.getRemaining(
                     player.getUniqueId(),
-                    material
+                    key
             );
 
             String message = plugin.getConfig()
@@ -100,13 +175,23 @@ public class ItemUseListener implements Listener {
 
         cooldownManager.setCooldown(
                 player.getUniqueId(),
-                material,
+                key,
                 cooldown
         );
 
-        player.setCooldown(
-                material,
-                cooldown * 20
-        );
+        Material material = materialFromName(key);
+
+        if (material != null) {
+            player.setCooldown(material, cooldown * 20);
+        }
+    }
+
+    private Material materialFromName(String name) {
+
+        try {
+            return Material.valueOf(name);
+        } catch (IllegalArgumentException exception) {
+            return null;
+        }
     }
 }

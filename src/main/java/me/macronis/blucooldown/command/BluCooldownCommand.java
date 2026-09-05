@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -96,14 +97,25 @@ public class BluCooldownCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        String path = "items." + material.name();
+        String key = resolveItemKey(player, item, material);
+
+        String path = "items." + key;
         plugin.getConfig().set(path + ".enabled", true);
         plugin.getConfig().set(path + ".cooldown", cooldown);
         plugin.saveConfig();
         plugin.reloadPluginConfig();
 
-        sendMessage(sender, "messages.cooldown-updated", material.name(), cooldown);
+        sendMessage(sender, "messages.cooldown-updated", key, cooldown);
         return true;
+    }
+
+    private String resolveItemKey(Player player, ItemStack item, Material material) {
+
+        if (material == Material.TRIDENT && item.containsEnchantment(Enchantment.RIPTIDE)) {
+            return "TRIDENT_RIPTIDE";
+        }
+
+        return material.name();
     }
 
     private void sendMessage(CommandSender sender, String path) {

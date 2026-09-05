@@ -8,6 +8,11 @@ messages:
   cooldown:
     actionbar: "<red>You must wait <white>%time%</white> before using this item again."
 
+# Any item in the game is supported!
+# Just add it by its Material name (e.g. DIAMOND_PICKAXE)
+# Use /blucooldown handitem <seconds> to set it in-game
+#
+# For Trident with Riptide enchantment, use TRIDENT_RIPTIDE
 items:
   ENDER_PEARL:
     enabled: true
@@ -24,3 +29,11 @@ items:
   ENCHANTED_GOLDEN_APPLE:
     enabled: true
     cooldown: 30
+
+  TRIDENT:
+    enabled: true
+    cooldown: 5
+
+  TRIDENT_RIPTIDE:
+    enabled: true
+    cooldown: 10
