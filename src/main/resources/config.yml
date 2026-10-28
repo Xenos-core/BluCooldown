@@ -1,0 +1,42 @@
+messages:
+  no-permission: "<red>You do not have permission to use this command."
+  player-only: "<red>Only players can use this command."
+  reload-success: "<green>BluCooldown config reloaded."
+  invalid-cooldown: "<red>Please enter a valid cooldown in seconds."
+  no-item-in-hand: "<red>You must hold an item in your main hand."
+  cooldown-updated: "<green>Updated <white>%material%</white> cooldown to <white>%cooldown%s</white>."
+  cooldown:
+    actionbar: "<red>You must wait <white>%time%</white> before using this item again."
+
+cooldown-tiers:
+  vip-multiplier: 0.5
+
+# Any item in the game is supported!
+# Just add it by its Material name (e.g. DIAMOND_PICKAXE)
+# Use /blucooldown handitem <seconds> to set it in-game
+#
+# For Trident with Riptide enchantment, use TRIDENT_RIPTIDE
+items:
+  ENDER_PEARL:
+    enabled: true
+    cooldown: 15
+
+  GOLDEN_APPLE:
+    enabled: true
+    cooldown: 5
+
+  CHORUS_FRUIT:
+    enabled: true
+    cooldown: 8
+
+  ENCHANTED_GOLDEN_APPLE:
+    enabled: true
+    cooldown: 30
+
+  TRIDENT:
+    enabled: true
+    cooldown: 5
+
+  TRIDENT_RIPTIDE:
+    enabled: true
+    cooldown: 10

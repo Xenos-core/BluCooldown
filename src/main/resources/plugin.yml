@@ -1,0 +1,27 @@
+name: BluCooldown
+version: '1.1.0'
+main: me.macronis.blucooldown.BluCooldown
+api-version: '26.3'
+author: Macronis
+folia-supported: true
+
+commands:
+  blucooldown:
+    description: Manage BluCooldown.
+    usage: /blucooldown <reload|handitem>
+    aliases:
+      - blu
+
+permissions:
+  blucooldown.bypass:
+    description: Bypasses BluCooldown item cooldowns.
+    default: op
+  blucooldown.tier.vip:
+    description: Applies the VIP cooldown reduction.
+    default: false
+  blucooldown.reload:
+    description: Allows reloading the BluCooldown config.
+    default: op
+  blucooldown.handitem:
+    description: Allows setting a cooldown for the item in hand.
+    default: op
