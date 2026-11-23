@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#060B18"/><stop offset="1" stop-color="#0B1630"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#BFE3FF"/><stop offset="0.5" stop-color="#4DA8FF"/><stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4DA8FF" stop-opacity="0"/><stop offset="0.5" stop-color="#4DA8FF"/><stop offset="1" stop-color="#4DA8FF" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#4DA8FF" stroke-opacity="0.06"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="220" rx="18" fill="url(#bg)"/>
+  <rect width="900" height="220" rx="18" fill="url(#grid)"/>
+  <g transform="translate(450 92)" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <text font-size="64" font-weight="800" fill="url(#title)" letter-spacing="1">BluCooldown</text>
+    <rect x="-200" y="22" width="400" height="2" fill="url(#line)"/>
+    <text y="62" font-size="20" fill="#8CC8FF">Item cooldowns with the vanilla animation.</text>
+  </g>
+  <g font-family="Consolas, Menlo, monospace" font-size="15" fill="#4DA8FF" fill-opacity="0.35">
+    <text x="36" y="44">ENDER_PEARL 15s</text>
+    <text x="724" y="44">GOLDEN_APPLE 5s</text>
+    <text x="36" y="196">TRIDENT_RIPTIDE 10s</text>
+    <text x="744" y="196">Paper · Folia</text>
+  </g>
+</svg>

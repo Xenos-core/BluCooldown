@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="200" viewBox="0 0 900 200">
+  <rect width="900" height="200" rx="14" fill="#0D0F14"/>
+  <g font-family="Consolas, Menlo, monospace" font-size="17">
+    <text x="215" y="58"><tspan fill="#FF5555">You must wait </tspan><tspan fill="#FFFFFF">12s</tspan><tspan fill="#FF5555"> before using this item again.</tspan></text>
+  </g>
+  <g transform="translate(270 92)">
+    <rect x="0" y="0" width="360" height="40" rx="4" fill="#1A1D24" stroke="#2B3140"/>
+    <g fill="#2B3140">
+      <rect x="4" y="4" width="32" height="32"/><rect x="44" y="4" width="32" height="32"/><rect x="84" y="4" width="32" height="32"/>
+      <rect x="124" y="4" width="32" height="32"/><rect x="164" y="4" width="32" height="32"/><rect x="204" y="4" width="32" height="32"/>
+      <rect x="244" y="4" width="32" height="32"/><rect x="284" y="4" width="32" height="32"/><rect x="324" y="4" width="32" height="32"/>
+    </g>
+    <rect x="1" y="1" width="38" height="38" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="20" cy="20" r="11" fill="#1E8C7A"/><circle cx="20" cy="20" r="7" fill="#2FD6B5"/>
+    <rect x="4" y="4" width="32" height="22" fill="#FFFFFF" fill-opacity="0.45"/>
+    <circle cx="60" cy="20" r="10" fill="#F2C744"/><rect x="58" y="7" width="3" height="5" fill="#6B4F1D"/>
+  </g>
+  <text x="450" y="170" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#5C6B85">Ender pearl on cooldown: the vanilla sweep on the hotbar, plus an action bar message</text>
+</svg>
